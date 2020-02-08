@@ -4,11 +4,13 @@ import {
   Text,
   KeyboardAvoidingView,
   TextInput,
-  Button,
+  SafeAreaView,
+  View,
 } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { AppNavigationParamList } from 'paramLists';
 import { Colors } from 'styles';
+import { Button } from 'components/button';
 
 export const Login = ({
   route,
@@ -19,42 +21,62 @@ export const Login = ({
   const [password, setPassword] = useState('');
 
   return (
-    <KeyboardAvoidingView behavior="padding" style={styles.container}>
-      <Text style={styles.title}>Login to Virgin Active</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        keyboardType="number-pad"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        keyboardType="number-pad"
-        value={password}
-        onChangeText={setPassword}
-      />
-      <Button
-        title="Login"
-        onPress={(): Promise<void> => route.params?.login(username, password)}
-      />
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={styles.keyboardAvoidingView}
+    >
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.title}>Login to Virgin Active</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Username"
+              keyboardType="number-pad"
+              value={username}
+              onChangeText={setUsername}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              keyboardType="number-pad"
+              value={password}
+              onChangeText={setPassword}
+            />
+          </View>
+          <Button
+            title="Login"
+            onPress={(): void => {
+              route.params?.login(username, password);
+            }}
+          />
+        </View>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  keyboardAvoidingView: {
     flex: 1,
     backgroundColor: Colors.WHITE,
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  safeAreaView: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    padding: 32,
+    justifyContent: 'space-between',
   },
   input: {
-    marginBottom: 32,
+    marginBottom: 56,
+    fontSize: 20,
+    fontFamily: "Inter"
   },
   title: {
-    marginBottom: 48,
-    fontWeight: 'bold',
+    marginBottom: 64,
+    fontSize: 24,
+    fontFamily: "InterBold",
   },
 });

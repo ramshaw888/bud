@@ -7,7 +7,8 @@
     "prettier"
   ],
   "env": {
-    "browser": true
+    "browser": true,
+    "node": true
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -17,6 +18,7 @@
   "plugins": ["@typescript-eslint/eslint-plugin", "react", "react-hooks"],
   "rules": {
     "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/camelcase": "off"
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/no-var-requires": "off"
   }
 }

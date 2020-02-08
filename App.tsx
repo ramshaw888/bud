@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { loadAsync } from 'expo-font';
 import { Login } from 'screens/login';
 import { Dashboard } from 'screens/dashboard';
 import { AppNavigationParamList } from 'paramLists';
@@ -10,6 +11,14 @@ const AppNavigation = createStackNavigator<AppNavigationParamList>();
 
 export default function App(): JSX.Element {
   const [authToken, setAuthToken] = useState<string | undefined>();
+
+  useEffect(() => {
+    loadAsync({
+      'InterRegular': require('./assets/fonts/Inter-Regular.otf'),
+      'InterBold': require('./assets/fonts/Inter-Bold.otf'),
+      'InterSemiBold': require('./assets/fonts/Inter-SemiBold.otf'),
+    });
+  }, [])
 
   const login = async (username: string, password: string): Promise<void> => {
     const resp: { access_token: string } = await virginFetch(
