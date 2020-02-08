@@ -18,23 +18,24 @@ export const Button = ({
 }): JSX.Element => (
   <TouchableOpacity style={style.button} onPress={onPress}>
     <Text style={style.text}>{title.toUpperCase()}</Text>
-    {!loading && <ActivityIndicator color={Colors.DARK_GREY} />}
+    {loading && <ActivityIndicator color={Colors.RED} />}
   </TouchableOpacity>
 );
 
 const style = StyleSheet.create({
   button: {
     width: '100%',
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     backgroundColor: Colors.WHITE,
     borderRadius: 8,
     paddingHorizontal: 32,
-    paddingVertical: 24,
+    paddingVertical: 22,
     ...Shadows.MID,
   },
   text: {
-    fontFamily: 'InterSemiBold',
+    fontFamily: 'InterBold',
+    paddingVertical: 2,
     color: Colors.DARK_GREY,
   },
 });

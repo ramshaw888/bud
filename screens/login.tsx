@@ -19,6 +19,7 @@ export const Login = ({
 }): JSX.Element => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   return (
     <KeyboardAvoidingView
@@ -28,7 +29,10 @@ export const Login = ({
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.container}>
           <View>
-            <Text style={styles.title}>Login to Virgin Active</Text>
+            <View style={styles.header}>
+              <Text style={styles.title}>Bud</Text>
+              <Text style={styles.subtitle}>Class Bookings Made Easy</Text>
+            </View>
             <TextInput
               style={styles.input}
               placeholder="Username"
@@ -39,16 +43,20 @@ export const Login = ({
             <TextInput
               style={styles.input}
               placeholder="Password"
-              keyboardType="number-pad"
+              keyboardType="phone-pad"
+              secureTextEntry={true}
               value={password}
               onChangeText={setPassword}
             />
           </View>
           <Button
             title="Login"
-            onPress={(): void => {
-              route.params?.login(username, password);
+            onPress={async (): Promise<void> => {
+              setLoading(true);
+              await route.params?.login(username, password);
+              setLoading(false);
             }}
+            loading={loading}
           />
         </View>
       </SafeAreaView>
@@ -70,13 +78,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   input: {
-    marginBottom: 56,
+    marginBottom: 32,
     fontSize: 20,
-    fontFamily: "Inter"
+    fontFamily: 'InterRegular',
+  },
+  header: {
+    marginBottom: 64,
   },
   title: {
-    marginBottom: 64,
-    fontSize: 24,
-    fontFamily: "InterBold",
+    marginBottom: 4,
+    fontFamily: 'InterBold',
+    fontSize: 54,
+  },
+  subtitle: {
+    fontFamily: 'InterSemiBold',
   },
 });
