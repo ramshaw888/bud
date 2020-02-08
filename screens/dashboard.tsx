@@ -7,5 +7,5 @@ export const Dashboard = (): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.BACKGROUND },
+  container: { flex: 1, backgroundColor: Colors.WHITE },
 });

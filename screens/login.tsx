@@ -46,7 +46,7 @@ export const Login = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.BACKGROUND,
+    backgroundColor: Colors.WHITE,
     alignItems: 'center',
     justifyContent: 'center',
   },
