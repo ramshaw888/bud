@@ -6,13 +6,17 @@ import {
   TextInput,
   Button,
 } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
+import { AppNavigationParamList } from 'paramLists';
+import { Colors } from 'styles';
 
-export const Login = (): JSX.Element => {
+export const Login = ({
+  route,
+}: {
+  route: RouteProp<AppNavigationParamList, 'Login'>;
+}): JSX.Element => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const login = () => {
-    console.log(username, password);
-  };
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -20,16 +24,21 @@ export const Login = (): JSX.Element => {
       <TextInput
         style={styles.input}
         placeholder="Username"
+        keyboardType="number-pad"
         value={username}
         onChangeText={setUsername}
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
+        keyboardType="number-pad"
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Login" onPress={login} />
+      <Button
+        title="Login"
+        onPress={(): Promise<void> => route.params?.login(username, password)}
+      />
     </KeyboardAvoidingView>
   );
 };
@@ -37,7 +46,7 @@ export const Login = (): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.BACKGROUND,
     alignItems: 'center',
     justifyContent: 'center',
   },

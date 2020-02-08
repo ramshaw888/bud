@@ -16,6 +16,7 @@
   },
   "plugins": ["@typescript-eslint/eslint-plugin", "react", "react-hooks"],
   "rules": {
-    "@typescript-eslint/no-use-before-define": "off"
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/camelcase": "off"
   }
 }

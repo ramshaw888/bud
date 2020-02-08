@@ -6,6 +6,14 @@
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "styles": ["./styles.ts"],
+      "helpers": ["./helpers.ts"],
+      "paramLists": ["./paramLists.ts"],
+      "screens": ["./screens"],
+      "components": ["./components"]
+    }
   }
 }
