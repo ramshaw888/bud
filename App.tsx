@@ -6,12 +6,13 @@ import { Login } from 'screens/login';
 import { Dashboard } from 'screens/dashboard';
 import { AppNavigationParamList } from 'paramLists';
 import { virginFetch } from 'helpers';
+import { Alert } from 'react-native';
 
 const AppNavigation = createStackNavigator<AppNavigationParamList>();
 
 export default function App(): JSX.Element {
   const [authToken, setAuthToken] = useState<string | undefined>();
-  const [fontsReady, setFontsReady] = useState(false)
+  const [fontsReady, setFontsReady] = useState(false);
 
   useEffect(() => {
     (async (): Promise<void> => {
@@ -19,33 +20,40 @@ export default function App(): JSX.Element {
         InterRegular: require('./assets/fonts/Inter-Regular.otf'),
         InterBold: require('./assets/fonts/Inter-Bold.otf'),
         InterSemiBold: require('./assets/fonts/Inter-SemiBold.otf'),
+        InterItalic: require('./assets/fonts/Inter-Italic.otf'),
       });
       setFontsReady(true);
     })();
   }, []);
 
   const login = async (username: string, password: string): Promise<void> => {
-    const resp: { access_token: string } = await virginFetch(
-      'https://hal.virginactive.com.au/token',
-      'POST',
-      `username=${username}&password=${password}&grant_type=password`,
-    );
-    setAuthToken(resp?.access_token);
+    try {
+      const resp: { access_token: string } = await virginFetch(
+        'https://hal.virginactive.com.au/token',
+        'POST',
+        `username=${username}&password=${password}&grant_type=password`,
+      );
+      setAuthToken(resp?.access_token);
+    } catch {
+      Alert.alert('Login failed. Please check your details and try again');
+    }
   };
 
-  return fontsReady && (
-    <NavigationContainer>
-      <AppNavigation.Navigator headerMode="none">
-        {!authToken ? (
-          <AppNavigation.Screen
-            initialParams={{ login }}
-            component={Login}
-            name="Login"
-          />
-        ) : (
-          <AppNavigation.Screen component={Dashboard} name="Dashboard" />
-        )}
-      </AppNavigation.Navigator>
-    </NavigationContainer>
+  return (
+    fontsReady && (
+      <NavigationContainer>
+        <AppNavigation.Navigator headerMode="none">
+          {!authToken ? (
+            <AppNavigation.Screen
+              initialParams={{ login }}
+              component={Login}
+              name="Login"
+            />
+          ) : (
+            <AppNavigation.Screen component={Dashboard} name="Dashboard" />
+          )}
+        </AppNavigation.Navigator>
+      </NavigationContainer>
+    )
   );
 }

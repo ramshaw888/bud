@@ -21,5 +21,10 @@ export async function virginFetch<R>(
     body,
   });
 
+  // TODO: Make nicer
+  if (!resp.ok) {
+    throw Error('Error');
+  }
+
   return resp.json();
 }

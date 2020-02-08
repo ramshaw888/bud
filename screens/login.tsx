@@ -31,19 +31,20 @@ export const Login = ({
           <View>
             <View style={styles.header}>
               <Text style={styles.title}>Bud</Text>
-              <Text style={styles.subtitle}>Class Bookings Made Easy</Text>
+              <Text style={styles.subtitle}>Class Bookings Made Simple</Text>
             </View>
             <TextInput
               style={styles.input}
-              placeholder="Username"
+              selectionColor={Colors.RED}
+              placeholder="User name"
               keyboardType="number-pad"
               value={username}
               onChangeText={setUsername}
             />
             <TextInput
               style={styles.input}
+              selectionColor={Colors.RED}
               placeholder="Password"
-              keyboardType="phone-pad"
               secureTextEntry={true}
               value={password}
               onChangeText={setPassword}
@@ -86,11 +87,12 @@ const styles = StyleSheet.create({
     marginBottom: 64,
   },
   title: {
-    marginBottom: 4,
     fontFamily: 'InterBold',
-    fontSize: 54,
+    color: Colors.DARK_GREY,
+    fontSize: 72,
   },
   subtitle: {
     fontFamily: 'InterSemiBold',
+    color: Colors.DARK_GREY,
   },
 });

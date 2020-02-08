@@ -1,4 +1,5 @@
 import React from 'react';
+import { impactAsync } from 'expo-haptics';
 import {
   TouchableOpacity,
   StyleSheet,
@@ -16,7 +17,13 @@ export const Button = ({
   title: string;
   loading?: boolean;
 }): JSX.Element => (
-  <TouchableOpacity style={style.button} onPress={onPress}>
+  <TouchableOpacity
+    style={style.button}
+    onPress={(): void => {
+      impactAsync();
+      onPress();
+    }}
+  >
     <Text style={style.text}>{title.toUpperCase()}</Text>
     {loading && <ActivityIndicator color={Colors.RED} />}
   </TouchableOpacity>
