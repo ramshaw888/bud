@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -20,62 +20,62 @@ export const Login = ({
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const passwordRef = useRef<TextInput>();
 
   return (
-    <KeyboardAvoidingView
-      behavior="padding"
-      style={styles.keyboardAvoidingView}
-    >
-      <SafeAreaView style={styles.safeAreaView}>
-        <View style={styles.container}>
-          <View>
-            <View style={styles.header}>
-              <Text style={styles.title}>Bud</Text>
-              <Text style={styles.subtitle}>Class Bookings Made Simple</Text>
-            </View>
-            <TextInput
-              style={styles.input}
-              selectionColor={Colors.RED}
-              placeholder="User name"
-              keyboardType="number-pad"
-              value={username}
-              onChangeText={setUsername}
-            />
-            <TextInput
-              style={styles.input}
-              selectionColor={Colors.RED}
-              placeholder="Password"
-              secureTextEntry={true}
-              value={password}
-              onChangeText={setPassword}
-            />
+    <SafeAreaView style={styles.safeAreaView}>
+      <View style={styles.container}>
+        <View>
+          <View style={styles.header}>
+            <Text style={styles.title}>Bud</Text>
+            <Text style={styles.subtitle}>Class Bookings Made Simple</Text>
           </View>
-          <Button
-            title="Login"
-            onPress={async (): Promise<void> => {
-              setLoading(true);
-              await route.params?.login(username, password);
-              setLoading(false);
-            }}
-            loading={loading}
+          <TextInput
+            style={styles.input}
+            selectionColor={Colors.RED}
+            placeholder="User name"
+            value={username}
+            autoCompleteType="username"
+            onChangeText={setUsername}
+            returnKeyType="next"
+            onSubmitEditing={(): void => passwordRef.current?.focus()}
+          />
+          <TextInput
+            ref={passwordRef}
+            style={styles.input}
+            selectionColor={Colors.RED}
+            placeholder="Password"
+            autoCompleteType="password"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={setPassword}
           />
         </View>
-      </SafeAreaView>
-    </KeyboardAvoidingView>
+        <Button
+          title="Login"
+          onPress={async (): Promise<void> => {
+            setLoading(true);
+            await route.params?.login(username, password);
+            setLoading(false);
+          }}
+          loading={loading}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   keyboardAvoidingView: {
     flex: 1,
-    backgroundColor: Colors.WHITE,
   },
   safeAreaView: {
     flex: 1,
   },
   container: {
     flex: 1,
-    padding: 32,
+    paddingHorizontal: 32,
+    paddingVertical: 16,
     justifyContent: 'space-between',
   },
   input: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginBottom: 64,
   },
   title: {
-    fontFamily: 'InterBold',
+    fontFamily: 'InterSemiBold',
     color: Colors.DARK_GREY,
     fontSize: 72,
   },

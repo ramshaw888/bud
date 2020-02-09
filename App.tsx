@@ -7,6 +7,7 @@ import { Dashboard } from 'screens/dashboard';
 import { AppNavigationParamList } from 'paramLists';
 import { virginFetch } from 'helpers';
 import { Alert } from 'react-native';
+import { Colors } from 'styles';
 
 const AppNavigation = createStackNavigator<AppNavigationParamList>();
 
@@ -42,7 +43,7 @@ export default function App(): JSX.Element {
   return (
     fontsReady && (
       <NavigationContainer>
-        <AppNavigation.Navigator headerMode="none">
+        <AppNavigation.Navigator screenOptions={{ cardStyle:{ backgroundColor: Colors.WHITE }}}headerMode="none">
           {!authToken ? (
             <AppNavigation.Screen
               initialParams={{ login }}
