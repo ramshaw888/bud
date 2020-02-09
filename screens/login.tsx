@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import {
   StyleSheet,
   Text,
-  KeyboardAvoidingView,
+  Keyboard,
   TextInput,
   SafeAreaView,
   View,
@@ -24,7 +24,7 @@ export const Login = ({
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <View style={styles.container}>
+      <View onTouchStart={Keyboard.dismiss} style={styles.container}>
         <View>
           <View style={styles.header}>
             <Text style={styles.title}>Bud</Text>
